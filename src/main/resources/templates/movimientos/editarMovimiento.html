@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, initial-scale=1.0">
+    <title>Movimientos</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/6.0.0/css/all.min.css}" >
+    <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/webjars/popper/js/2.9.3/umd/popper.min.js}"></script>
+</head>
+<body>
+    <nav th:replace="layout/plantilla :: nav"></nav>
+    <div class="container">
+        <h2 class="text-center my-3">Editar movimiento</h2>
+        <form th:action="@{/actualizarMovimiento/}+${movimiento.id}" method="post" th:object="${movimiento}">
+            <label for="concepto">Concepto</label>
+            <input type="text" name="concepto" th:field="*{concepto}"><br>
+            <label for="monto">Monto</label>
+            <input type="text" name="monto" th:field="*{monto}"><br>
+            <label for="fechaMov">Fecha Movimiento</label>
+            <input type="date" name="fechaMov" th:field="*{fechaMovimiento}"><br>
+
+            <label for="empresa">Empresa</label>
+            <select th:field = "*{empresa.id}" name="empresa">
+                <option value="0" selected>Seleccione empresa</option>
+                <option th:each="empresa : ${empresas}"
+                        th:value="${empresa.id}"
+                        th:text="${empresa.nombreEmpresa}">
+
+                </option>
+            </select><br>
+
+            <label for="usuario">Empleado responsable</label>
+            <select th:field = "*{empleado.id}" name="usuario">
+                <option value="0" selected>Seleccione empleado</option>
+                <option th:each="usuario : ${usuarios}"
+                        th:value="${usuario.id}"
+                        th:text="${usuario.nombreEmpleado}">
+
+                </option>
+            </select><br>
+
+            <input type="submit" name="guardar" value="Guardar">
+        </form>
+        <button><a th:href="@{/movimientos/verMovimientos}">Atras</a> </button>
+    </div>
+    <footer th:replace="layout/plantilla :: footer"></footer>
+</body>
+</html>
